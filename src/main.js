@@ -59,26 +59,26 @@ function createScene() {
 	camera.position.y = 5;
 
 	// debugging
-	const controls = new OrbitControls(camera, renderer.domElement);
-	controls.enablePan = false;
-	controls.enableZoom = false;
-	controls.target.set(0, 2, 0);
-	controls.update();
+	// const controls = new OrbitControls(camera, renderer.domElement);
+	// controls.enablePan = false;
+	// controls.enableZoom = false;
+	// controls.target.set(0, 2, 0);
+	// controls.update();
 
 	//helper to rotate around in scene
 	// var orbitControl = new OrbitControls(camera, renderer.domElement);
 	// orbitControl.addEventListener("change", render);
-	// //orbitControl.enableDamping = true;
-	// //orbitControl.dampingFactor = 0.8;
+	// orbitControl.enableDamping = true;
+	// orbitControl.dampingFactor = 0.8;
 	// orbitControl.noKeys = true;
 	// orbitControl.noPan = true;
 	// orbitControl.enableZoom = false;
 	// orbitControl.minPolarAngle = 1.2;
 	// orbitControl.maxPolarAngle = 1.2;
-	// orbitControl.minAzimuthAngle = -0.5;
-	// orbitControl.maxAzimuthAngle = 0.5;
+	// orbitControl.minAzimuthAngle = -0.2;
+	// orbitControl.maxAzimuthAngle = 0.2;
 
-	window.addEventListener("resize", onWindowResize, false); //resize callback
+	// window.addEventListener("resize", onWindowResize, false); //resize callback
 }
 
 function addWorld() {

@@ -1,7 +1,7 @@
 @import url(https://fonts.googleapis.com/css?family=Shadows+Into+Light);
 
 body {
-  background:yellow;
+  background-image:url('space.gif'); background-repeat:repeat;
   
 }
   

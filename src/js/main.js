@@ -8,16 +8,11 @@ window.addEventListener("load", init, false);
 var camera,
 	scene,
 	renderer,
-	dom,
-	worldRadius = 26,
 	mixer,
-	road,
 	rollingGround,
-	movingGround,
 	sceneHeight,
 	sceneWidth,
 	rollingSpeed = 0.008,
-	robo,
 	sun,
 	currentLane,
 	midLane = 0,
@@ -55,30 +50,15 @@ function createScene() {
 	addRobo();
 	addLight();
 	// set camera to 3rd person camera
-	camera.position.z = 12;
-	camera.position.y = 5;
+	camera.position.z = 14;
+	camera.position.y = 4;
 
 	// debugging
-	// const controls = new OrbitControls(camera, renderer.domElement);
-	// controls.enablePan = false;
-	// controls.enableZoom = false;
-	// controls.target.set(0, 2, 0);
-	// controls.update();
-
-	//helper to rotate around in scene
-	// var orbitControl = new OrbitControls(camera, renderer.domElement);
-	// orbitControl.addEventListener("change", render);
-	// orbitControl.enableDamping = true;
-	// orbitControl.dampingFactor = 0.8;
-	// orbitControl.noKeys = true;
-	// orbitControl.noPan = true;
-	// orbitControl.enableZoom = false;
-	// orbitControl.minPolarAngle = 1.2;
-	// orbitControl.maxPolarAngle = 1.2;
-	// orbitControl.minAzimuthAngle = -0.2;
-	// orbitControl.maxAzimuthAngle = 0.2;
-
-	// window.addEventListener("resize", onWindowResize, false); //resize callback
+	const controls = new OrbitControls(camera, renderer.domElement);
+	controls.enablePan = false;
+	controls.enableZoom = false;
+	controls.target.set(0, 2, 0);
+	controls.update();
 }
 
 function addWorld() {
@@ -88,30 +68,25 @@ function addWorld() {
 	texture.wrapS = THREE.RepeatWrapping;
 	texture.wrapT = THREE.RepeatWrapping;
 	texture.repeat.set(3, 2);
-	var cylinderMat = [];
-	cylinderMat.push(
-		new THREE.MeshPhongMaterial({
-			// color: 0x4f5150,
-			side: THREE.DoubleSide,
-			map: texture,
-		})
-	);
+	var cylinderMat = new THREE.MeshPhongMaterial({
+		// color: 0x4f5150,
+		side: THREE.DoubleSide,
+		map: texture,
+	});
 	rollingGround = new THREE.Mesh(cylinderGeo, cylinderMat);
 	rollingGround.receiveShadow = true;
 	rollingGround.rotation.z = Math.PI / 2;
 	rollingGround.position.y = -20;
-	rollingGround.position.z = 2;
+	rollingGround.position.z = 3;
 	scene.add(rollingGround);
 }
 
 function addRobo() {
 	var loader = new FBXLoader();
-	loader.load("assets/model/roboRunning.fbx", function (robo) {
+	loader.load("assets/model/Running.fbx", function (robo) {
 		mixer = new THREE.AnimationMixer(robo);
-
 		var action = mixer.clipAction(robo.animations[0]);
 		action.play();
-
 		robo.traverse(function (child) {
 			if (child.isMesh) {
 				child.castShadow = true;
@@ -127,18 +102,17 @@ function addRobo() {
 function addLight() {
 	var hemisphereLight = new THREE.HemisphereLight(0xfffafa, 0x000000, 0.9);
 	scene.add(hemisphereLight);
-	sun = new THREE.DirectionalLight(0xcdc1c5, 1.4);
-	sun.position.set(12, 9, -10);
+	sun = new THREE.DirectionalLight(0xcdc1c5, 0.9);
+	sun.position.set(12, 6, -7);
 	sun.castShadow = true;
 	scene.add(sun);
+
 	//Set up shadow properties for the sun light
 	sun.shadow.mapSize.width = 256;
 	sun.shadow.mapSize.height = 256;
 	sun.shadow.camera.near = 0.5;
 	sun.shadow.camera.far = 50;
 }
-
-function addTree() {}
 
 function update() {
 	// animate

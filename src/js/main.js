@@ -9,7 +9,11 @@ var camera,
 	scene,
 	renderer,
 	mixer,
-	rollingGround,
+	rollingStreet,
+	rollingSideWalkRight,
+	rollingSideWalkLeft,
+	rollingWallRight,
+	rollingWallLeft,
 	sceneHeight,
 	sceneWidth,
 	rollingSpeed = 0.008,
@@ -36,9 +40,9 @@ function createScene() {
 	scene = new THREE.Scene();
 	// add sky
 	var loader = new THREE.TextureLoader();
-	scene.background = loader.load("assets/textures/cityrobot2.jpg");
+	scene.background = loader.load("assets/textures/cityrobot3.jpg");
 	// add fog
-	scene.fog = new THREE.FogExp2(0x00011, 0.08);
+	// scene.fog = new THREE.FogExp2(0x00011, 0.08);
 	// set camera
 	camera = new THREE.PerspectiveCamera(75, sceneWidth / sceneHeight, 0.2, 1000);
 	// render
@@ -46,12 +50,18 @@ function createScene() {
 	renderer.setSize(sceneWidth, sceneHeight);
 	document.body.appendChild(renderer.domElement);
 	// add game object
-	addWorld();
+	addStreet();
+	addSideWalkLeft();
+	addSideWalkRight();
+	addWallRight();
+	addWallLeft();
 	addRobo();
 	addLight();
 	// set camera to 3rd person camera
+	// camera.position.z = 14;
+	// camera.position.y = 4;
 	camera.position.z = 14;
-	camera.position.y = 4;
+	camera.position.y = 5;
 
 	// debugging
 	const controls = new OrbitControls(camera, renderer.domElement);
@@ -61,24 +71,111 @@ function createScene() {
 	controls.update();
 }
 
-function addWorld() {
-	var cylinderGeo = new THREE.CylinderGeometry(19, 19, 45, 200, 1);
-	var texture = new THREE.TextureLoader().load("../assets/textures/brokenroad.jpg");
-	// texture.rotation = Math.PI / 2;
+function addStreet() {
+	var cylinderGeo = new THREE.CylinderGeometry(19, 19, 20, 200, 1);
+	var texture = new THREE.TextureLoader().load("../assets/textures/street2.jpg");
+	texture.rotation = Math.PI / 2;
 	texture.wrapS = THREE.RepeatWrapping;
 	texture.wrapT = THREE.RepeatWrapping;
-	texture.repeat.set(3, 2);
+	texture.repeat.set(1, 1);
 	var cylinderMat = new THREE.MeshPhongMaterial({
 		// color: 0x4f5150,
 		side: THREE.DoubleSide,
 		map: texture,
 	});
-	rollingGround = new THREE.Mesh(cylinderGeo, cylinderMat);
-	rollingGround.receiveShadow = true;
-	rollingGround.rotation.z = Math.PI / 2;
-	rollingGround.position.y = -20;
-	rollingGround.position.z = 3;
-	scene.add(rollingGround);
+	rollingStreet = new THREE.Mesh(cylinderGeo, cylinderMat);
+	rollingStreet.receiveShadow = true;
+	rollingStreet.rotation.z = Math.PI / 2;
+	rollingStreet.position.y = -20;
+	rollingStreet.position.z = 3;
+	scene.add(rollingStreet);
+}
+
+function addSideWalkRight() {
+	var cylinderGeo = new THREE.CylinderGeometry(19.5, 19.5, 5, 200, 1);
+	var texture = new THREE.TextureLoader().load("../assets/textures/sidewalk2.jpg");
+	texture.rotation = Math.PI;
+	texture.wrapS = THREE.RepeatWrapping;
+	texture.wrapT = THREE.RepeatWrapping;
+	texture.repeat.set(15, 1);
+	var cylinderMat = new THREE.MeshPhongMaterial({
+		// color: 0x4f5150,
+		side: THREE.DoubleSide,
+		map: texture,
+	});
+	rollingSideWalkRight = new THREE.Mesh(cylinderGeo, cylinderMat);
+	rollingSideWalkRight.receiveShadow = true;
+	rollingSideWalkRight.rotation.z = Math.PI / 2;
+	rollingSideWalkRight.position.x = 12;
+	rollingSideWalkRight.position.y = -20;
+	rollingSideWalkRight.position.z = 3;
+	scene.add(rollingSideWalkRight);
+	streetLampRight();
+}
+
+function addSideWalkLeft() {
+	var cylinderGeo = new THREE.CylinderGeometry(19.5, 19.5, 5, 200, 1);
+	var texture = new THREE.TextureLoader().load("../assets/textures/sidewalk2.jpg");
+	texture.rotation = Math.PI;
+	texture.wrapS = THREE.RepeatWrapping;
+	texture.wrapT = THREE.RepeatWrapping;
+	texture.repeat.set(15, 1);
+	var cylinderMat = new THREE.MeshPhongMaterial({
+		// color: 0x4f5150,
+		side: THREE.DoubleSide,
+		map: texture,
+	});
+	rollingSideWalkLeft = new THREE.Mesh(cylinderGeo, cylinderMat);
+	rollingSideWalkLeft.receiveShadow = true;
+	rollingSideWalkLeft.rotation.z = Math.PI / 2;
+	rollingSideWalkLeft.position.x = -12;
+	rollingSideWalkLeft.position.y = -20;
+	rollingSideWalkLeft.position.z = 3;
+	scene.add(rollingSideWalkLeft);
+	streetLampLeft();
+}
+
+function addWallRight() {
+	var cylinderGeo = new THREE.CylinderGeometry(30, 30, 12, 200, 1);
+	var texture = new THREE.TextureLoader().load("../assets/textures/wall3.jpg");
+	texture.rotation = Math.PI / 2;
+	texture.wrapS = THREE.RepeatWrapping;
+	texture.wrapT = THREE.RepeatWrapping;
+	texture.repeat.set(8, 8);
+	var cylinderMat = new THREE.MeshPhongMaterial({
+		// color: 0x4f5150,
+		side: THREE.DoubleSide,
+		map: texture,
+	});
+	rollingWallRight = new THREE.Mesh(cylinderGeo, cylinderMat);
+	rollingWallRight.receiveShadow = true;
+	rollingWallRight.rotation.z = Math.PI / 2;
+	rollingWallRight.position.x = 22;
+	rollingWallRight.position.y = -20;
+	rollingWallRight.position.z = 3;
+	scene.add(rollingWallRight);
+	streetLampRight();
+}
+
+function addWallLeft() {
+	var cylinderGeo = new THREE.CylinderGeometry(30, 30, 12, 200, 1);
+	var texture = new THREE.TextureLoader().load("../assets/textures/wall3.jpg");
+	texture.rotation = Math.PI;
+	texture.wrapS = THREE.RepeatWrapping;
+	texture.wrapT = THREE.RepeatWrapping;
+	texture.repeat.set(8, 8);
+	var cylinderMat = new THREE.MeshPhongMaterial({
+		// color: 0x4f5150,
+		side: THREE.DoubleSide,
+		map: texture,
+	});
+	rollingWallLeft = new THREE.Mesh(cylinderGeo, cylinderMat);
+	rollingWallLeft.receiveShadow = true;
+	rollingWallLeft.rotation.z = Math.PI / 2;
+	rollingWallLeft.position.x = -22;
+	rollingWallLeft.position.y = -20;
+	rollingWallLeft.position.z = 3;
+	scene.add(rollingWallLeft);
 }
 
 function addRobo() {
@@ -93,9 +190,42 @@ function addRobo() {
 				child.receiveShadow = true;
 			}
 		});
-		robo.position.set(0, -1.5, 5);
+		robo.position.set(0, -1.5, 8);
+		robo.scale.set(0.006, 0.006, 0.006);
 		robo.rotation.set(0, Math.PI, 0);
 		scene.add(robo);
+	});
+}
+
+function streetLampLeft() {
+	var loader = new FBXLoader();
+	loader.load("assets/model/StreetLamp2.fbx", function (lamp) {
+		lamp.traverse(function (child) {
+			if (child.isMesh) {
+				child.castShadow = true;
+				child.receiveShadow = true;
+			}
+		});
+		lamp.position.set(-11, -1, 0);
+		lamp.scale.set(0.017, 0.017, 0.017);
+		lamp.rotation.set(0, Math.PI / 2, 0);
+		scene.add(lamp);
+	});
+}
+
+function streetLampRight() {
+	var loader = new FBXLoader();
+	loader.load("assets/model/StreetLamp2.fbx", function (lamp) {
+		lamp.traverse(function (child) {
+			if (child.isMesh) {
+				child.castShadow = true;
+				child.receiveShadow = true;
+			}
+		});
+		lamp.position.set(11, -1, 0);
+		lamp.scale.set(0.017, 0.017, 0.017);
+		lamp.rotation.set(0, Math.PI / 2, 0);
+		scene.add(lamp);
 	});
 }
 
@@ -120,7 +250,11 @@ function update() {
 
 	if (mixer) mixer.update(delta);
 
-	rollingGround.rotation.x += rollingSpeed;
+	rollingStreet.rotation.x += rollingSpeed;
+	rollingSideWalkRight.rotation.x += rollingSpeed;
+	rollingSideWalkLeft.rotation.x += rollingSpeed;
+	rollingWallRight.rotation.x += rollingSpeed;
+	rollingWallLeft.rotation.x += rollingSpeed;
 
 	render();
 	// request next update

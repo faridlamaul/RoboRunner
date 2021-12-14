@@ -1,78 +1,191 @@
 <!DOCTYPE html>
-<html lang="en">
+
+<html>
 	<head>
 		<meta charset="UTF-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>RoboRunner | FP Grafkom Kelompok 9</title>
-		<link rel="shortcut icon" href="assets/images/favicon2.png" type="image/png" />
-		<link
-			href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-			rel="stylesheet"
-		/>
-		<link href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css" rel="stylesheet" />
-		<link href="https://fonts.googleapis.com/css?family=Alex+Brush" rel="stylesheet" />
-
+		<meta name="author" content="RoboRunner" />
+		<meta name="description" content="FP Kelompok 9 | RoboRunner" />
+		<meta http-equiv="refresh" />
 		<style>
-			body {
-				margin: 0;
-				background: #fff url("https://i.imgur.com/KheAuef.png") top left repeat-x;
-				font-family: "Alex Brush", cursive !important;
+			#container {
+				display: flex;
 			}
-			.page {
+			#main {
 				display: none;
-				padding: 0 0.5em;
 			}
-			.page h1 {
-				font-size: 2em;
-				line-height: 1em;
-				margin-top: 1.1em;
+			#the-head {
+				font-family: "Poppin", sans-serif;
+				font-size: 60px;
+				color: goldenrod;
+				text-align: center;
+				align-items: center;
+				justify-content: center;
 				font-weight: bold;
 			}
-			.page p {
-				font-size: 1.5em;
-				line-height: 1.275em;
-				margin-top: 0.15em;
+			#credits {
+				display: none;
 			}
-
+			#easy-btn {
+				display: none;
+			}
+			#medium-btn {
+				display: none;
+			}
+			#hard-btn {
+				display: none;
+			}
+			#back-btn {
+				display: none;
+			}
+			#backsound {
+				display: none;
+			}
+			#button {
+				background-color: transparent;
+				background-repeat: no-repeat;
+				border: none;
+				cursor: pointer;
+				overflow: hidden;
+				outline: none;
+			}
 			#loading {
-				display: block;
+				display: none;
 				position: absolute;
 				top: 0;
 				left: 0;
 				z-index: 100;
 				width: 100vw;
 				height: 100vh;
-				background-color: rgba(192, 192, 192, 0.5);
+				background-color: rgba(222, 216, 215, 0.6);
 				background-image: url("https://i.stack.imgur.com/MnyxU.gif");
 				background-repeat: no-repeat;
 				background-position: center;
 			}
+			#score {
+				display: none;
+				font-family: "Poppin", sans-serif;
+				left: 0;
+				top: 0;
+				padding-left: 20px;
+				padding-right: 20px;
+				position: absolute;
+				text-align: center;
+				background-color: rgb(193, 17, 13);
+				border-radius: 4px;
+			}
 		</style>
+
+		<title>RoboRunner | FP Grafkom Kelompok 9</title>
+		<link rel="shortcut icon" href="assets/images/favicon2.png" type="image/png" />
+		<link
+			href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+			rel="stylesheet"
+		/>
+		<link rel="stylesheet" href="src/css/style.css" />
 	</head>
+
 	<body>
-		<div class="page" id="roborunner">
-			<script type="module" src="src/js/main.js"></script>
+		<div id="score">
+			<h2 style="color: white">HIGHSCORE : 100</h2>
+			<h4 style="color: white">SCORE : 100</h4>
+		</div>
+		<div class="container">
+			<div class="the-head" id="the-head">ROBORUNNER</div>
+			<div class="credits" id="credits">
+				<h2>Created by Kelompok 9 Grafika Komputer D</h2>
+				<h3>Ahmad Lamaul Farid - 05111940000134</h3>
+				<h3>Ifanu Antoni - 05111940000064</h3>
+				<h3>Yeremia Dyan Limantara - 05111940000232</h3>
+				<br />
+				<h3>THANK YOU</h3>
+			</div>
+			<div class="menu" id="menu" style="text-align: -webkit-center">
+				<nav>
+					<ul>
+						<button id="button" onclick="showMode()">
+							<li id="play-btn">
+								PLAY GAME
+								<span></span><span></span><span></span><span></span>
+							</li>
+						</button>
+						<button id="button" onclick="showCredits()">
+							<li id="credit-btn">
+								CREDITS
+								<span></span><span></span><span></span><span></span>
+							</li>
+						</button>
+						<form action="" id="myForm" onsubmit="return false;">
+							<button id="button" type="submit" onclick="runGame()">
+								<li id="easy-btn">
+									EASY
+									<span></span><span></span><span></span><span></span>
+								</li>
+							</button>
+							<button id="button" type="submit" onclick="runGame()">
+								<li id="medium-btn">
+									MEDIUM
+									<span></span><span></span><span></span><span></span>
+								</li>
+							</button>
+							<button id="button" type="submit" onclick="runGame()">
+								<li id="hard-btn">
+									HARD
+									<span></span><span></span><span></span><span></span>
+								</li>
+							</button>
+						</form>
+						<button id="button" onclick="showMenu()">
+							<li id="back-btn">
+								BACK
+								<span></span><span></span><span></span><span></span>
+							</li>
+						</button>
+					</ul>
+				</nav>
+			</div>
 		</div>
 		<div id="loading"></div>
+		<script type="module" src="src/js/main.js"></script>
 		<script>
-			function onReady(callback) {
-				var intervalId = window.setInterval(function () {
-					if (document.getElementsByTagName("body")[0] !== undefined) {
-						window.clearInterval(intervalId);
-						callback.call(this);
-					}
+			var runGame = function () {
+				document.getElementById("loading").style.display = "block";
+				document.getElementById("the-head").style.display = "none";
+				document.getElementById("credits").style.display = "none";
+				document.getElementById("menu").style.display = "none";
+				document.getElementById("score").style.display = "block";
+				setTimeout(function () {
+					// event.preventDefault();
+					document.getElementById("loading").style.display = "none";
 				}, 1000);
-			}
+			};
 
-			function setVisible(selector, visible) {
-				document.querySelector(selector).style.display = visible ? "block" : "none";
-			}
-
-			onReady(function () {
-				setVisible(".page", true);
-				setVisible("#loading", false);
-			});
+			var showCredits = function () {
+				document.getElementById("the-head").style.display = "none";
+				document.getElementById("credit-btn").style.display = "none";
+				document.getElementById("play-btn").style.display = "none";
+				document.getElementById("credits").style.display = "block";
+				document.getElementById("back-btn").style.display = "block";
+			};
+			var showMenu = function () {
+				document.getElementById("back-btn").style.display = "none";
+				document.getElementById("credits").style.display = "none";
+				document.getElementById("easy-btn").style.display = "none";
+				document.getElementById("medium-btn").style.display = "none";
+				document.getElementById("hard-btn").style.display = "none";
+				document.getElementById("the-head").style.display = "block";
+				document.getElementById("play-btn").style.display = "block";
+				document.getElementById("credit-btn").style.display = "block";
+			};
+			var showMode = function () {
+				document.getElementById("play-btn").style.display = "none";
+				document.getElementById("credit-btn").style.display = "none";
+				document.getElementById("the-head").style.display = "none";
+				document.getElementById("easy-btn").style.display = "block";
+				document.getElementById("medium-btn").style.display = "block";
+				document.getElementById("hard-btn").style.display = "block";
+				document.getElementById("back-btn").style.display = "block";
+			};
 		</script>
 	</body>
 </html>

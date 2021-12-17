@@ -11,9 +11,6 @@
 			#container {
 				display: flex;
 			}
-			#main {
-				display: none;
-			}
 			#the-head {
 				font-family: "Poppin", sans-serif;
 				font-size: 60px;
@@ -24,15 +21,6 @@
 				font-weight: bold;
 			}
 			#credits {
-				display: none;
-			}
-			#easy-btn {
-				display: none;
-			}
-			#medium-btn {
-				display: none;
-			}
-			#hard-btn {
 				display: none;
 			}
 			#back-btn {
@@ -65,7 +53,7 @@
 			#score {
 				display: none;
 				font-family: "Poppin", sans-serif;
-				left: 0;
+				left: 10;
 				top: 0;
 				padding-left: 20px;
 				padding-right: 20px;
@@ -87,8 +75,8 @@
 
 	<body>
 		<div id="score">
-			<h2 style="color: white">HIGHSCORE : 100</h2>
-			<h4 style="color: white">SCORE : 100</h4>
+			<h3 style="color: white">HIGHSCORE : 100</h3>
+			<h5 style="color: white">SCORE : <span id="currScore"></span></h5>
 		</div>
 		<div class="container">
 			<div class="the-head" id="the-head">ROBORUNNER</div>
@@ -103,38 +91,20 @@
 			<div class="menu" id="menu" style="text-align: -webkit-center">
 				<nav>
 					<ul>
-						<button id="button" onclick="showMode()">
-							<li id="play-btn">
-								PLAY GAME
-								<span></span><span></span><span></span><span></span>
-							</li>
-						</button>
+						<form action="" id="myForm" onsubmit="return false;">
+							<button id="button" type="submit" onclick="runGame()" style="margin-right: 14px">
+								<li id="play-btn">
+									PLAY
+									<span></span><span></span><span></span><span></span>
+								</li>
+							</button>
+						</form>
 						<button id="button" onclick="showCredits()">
 							<li id="credit-btn">
 								CREDITS
 								<span></span><span></span><span></span><span></span>
 							</li>
 						</button>
-						<form action="" id="myForm" onsubmit="return false;">
-							<button id="button" type="submit" onclick="runGame()">
-								<li id="easy-btn">
-									EASY
-									<span></span><span></span><span></span><span></span>
-								</li>
-							</button>
-							<button id="button" type="submit" onclick="runGame()">
-								<li id="medium-btn">
-									MEDIUM
-									<span></span><span></span><span></span><span></span>
-								</li>
-							</button>
-							<button id="button" type="submit" onclick="runGame()">
-								<li id="hard-btn">
-									HARD
-									<span></span><span></span><span></span><span></span>
-								</li>
-							</button>
-						</form>
 						<button id="button" onclick="showMenu()">
 							<li id="back-btn">
 								BACK
@@ -155,7 +125,6 @@
 				document.getElementById("menu").style.display = "none";
 				document.getElementById("score").style.display = "block";
 				setTimeout(function () {
-					// event.preventDefault();
 					document.getElementById("loading").style.display = "none";
 				}, 1000);
 			};
@@ -170,21 +139,9 @@
 			var showMenu = function () {
 				document.getElementById("back-btn").style.display = "none";
 				document.getElementById("credits").style.display = "none";
-				document.getElementById("easy-btn").style.display = "none";
-				document.getElementById("medium-btn").style.display = "none";
-				document.getElementById("hard-btn").style.display = "none";
 				document.getElementById("the-head").style.display = "block";
 				document.getElementById("play-btn").style.display = "block";
 				document.getElementById("credit-btn").style.display = "block";
-			};
-			var showMode = function () {
-				document.getElementById("play-btn").style.display = "none";
-				document.getElementById("credit-btn").style.display = "none";
-				document.getElementById("the-head").style.display = "none";
-				document.getElementById("easy-btn").style.display = "block";
-				document.getElementById("medium-btn").style.display = "block";
-				document.getElementById("hard-btn").style.display = "block";
-				document.getElementById("back-btn").style.display = "block";
 			};
 		</script>
 	</body>

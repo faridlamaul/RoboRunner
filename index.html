@@ -45,7 +45,7 @@
 				z-index: 100;
 				width: 100vw;
 				height: 100vh;
-				background-color: rgba(222, 216, 215, 0.6);
+				background-color: rgb(158, 146, 121);
 				background-image: url("https://i.stack.imgur.com/MnyxU.gif");
 				background-repeat: no-repeat;
 				background-position: center;
@@ -74,12 +74,12 @@
 	</head>
 
 	<body>
-		<div id="score">
-			<h3 style="color: white">HIGHSCORE : 100</h3>
-			<h5 style="color: white">SCORE : <span id="currScore"></span></h5>
-		</div>
 		<div class="container">
 			<div class="the-head" id="the-head">ROBORUNNER</div>
+			<div class="the-score" id="the-score">
+				<h2 id="highScoreName" style="font-size: 30px">HIGHSCORE</h2>
+				<h2 id="highScore" style="text-align: center; font-size: 50px">0</h2>
+			</div>
 			<div class="credits" id="credits">
 				<h2>Created by Kelompok 9 Grafika Komputer D</h2>
 				<h3>Ahmad Lamaul Farid - 05111940000134</h3>
@@ -94,7 +94,7 @@
 						<form action="" id="myForm" onsubmit="return false;">
 							<button id="button" type="submit" onclick="runGame()" style="margin-right: 14px">
 								<li id="play-btn">
-									PLAY
+									PLAY GAME
 									<span></span><span></span><span></span><span></span>
 								</li>
 							</button>
@@ -121,9 +121,9 @@
 			var runGame = function () {
 				document.getElementById("loading").style.display = "block";
 				document.getElementById("the-head").style.display = "none";
+				document.getElementById("the-score").style.display = "none";
 				document.getElementById("credits").style.display = "none";
 				document.getElementById("menu").style.display = "none";
-				document.getElementById("score").style.display = "block";
 				setTimeout(function () {
 					document.getElementById("loading").style.display = "none";
 				}, 1000);
@@ -131,6 +131,7 @@
 
 			var showCredits = function () {
 				document.getElementById("the-head").style.display = "none";
+				document.getElementById("the-score").style.display = "none";
 				document.getElementById("credit-btn").style.display = "none";
 				document.getElementById("play-btn").style.display = "none";
 				document.getElementById("credits").style.display = "block";
@@ -140,6 +141,7 @@
 				document.getElementById("back-btn").style.display = "none";
 				document.getElementById("credits").style.display = "none";
 				document.getElementById("the-head").style.display = "block";
+				document.getElementById("the-score").style.display = "block";
 				document.getElementById("play-btn").style.display = "block";
 				document.getElementById("credit-btn").style.display = "block";
 			};

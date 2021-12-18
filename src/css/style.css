@@ -109,10 +109,25 @@ nav ul li span:nth-child(4) {
 	font-family: "Poppin", sans-serif;
 	letter-spacing: 0.1em;
 	text-align: center;
+	line-height: 1em;
+	position: relative;
+	overflow: hidden;
+	z-index: 1;
+	transition: 0.5s;
+}
+
+.the-score {
+	--c: goldenrod;
+	color: var(--c);
+	font-size: 16px;
+	text-transform: uppercase;
+	font-weight: bold;
+	font-family: "Poppin", sans-serif;
+	letter-spacing: 0.1em;
+	text-align: center;
 	line-height: 3em;
 	position: relative;
 	overflow: hidden;
 	z-index: 1;
 	transition: 0.5s;
-	margin: 1em;
 }

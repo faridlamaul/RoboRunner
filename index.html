@@ -129,11 +129,7 @@
 
 	<body>
 		<div class="container">
-			<div class="the-head" id="the-head">ROBORUNNER</div>
-			<div class="the-score" id="the-score">
-				<h2 id="highScoreName" style="font-size: 30px">HIGHSCORE</h2>
-				<h2 style="text-align: center; font-size: 50px"><span id="highScore">0</span></h2>
-			</div>
+			<div class="the-head" id="the-head" style="margin-bottom: 0.5em">ROBORUNNER</div>
 			<div id="light" class="white_content">
 				<div
 					class="container-fade"
@@ -174,65 +170,82 @@
 				<br />
 				<h3>THANK YOU</h3>
 			</div>
-			<div class="menu" id="menu" style="text-align: -webkit-center">
-				<nav>
-					<ul>
-						<form action="" id="myForm" onsubmit="return false;">
-							<button id="button" type="submit" onclick="runGame()" style="margin-right: 14px">
-								<li id="play-btn">
-									PLAY GAME
-									<span></span><span></span><span></span><span></span>
-								</li>
-							</button>
-						</form>
-						<button id="button" onclick="showCredits()">
-							<li id="credit-btn">
-								CREDITS
-								<span></span><span></span><span></span><span></span>
-							</li>
-						</button>
-						<button id="button" onclick="showMenu()">
+			<div style="display: flex" id="lalala">
+				<div class="menu" id="menu" style="text-align: center">
+					<div>
+						<div class="the-score" id="the-score" style="margin-bottom: 80px">
+							<h2 id="highScoreName" style="font-size: 30px; margin-top: 0">HIGHSCORE</h2>
+							<h2 style="text-align: center; font-size: 50px"><span id="highScore">0</span></h2>
+						</div>
+						<div>
+							<nav>
+								<ul>
+									<form action="" id="myForm" onsubmit="return false;">
+										<button id="button" type="submit" onclick="runGame()">
+											<li id="play-btn">
+												PLAY GAME
+												<span></span><span></span><span></span><span></span>
+											</li>
+										</button>
+									</form>
+									<button id="button" onclick="showCredits()">
+										<li id="credit-btn">
+											CREDITS
+											<span></span><span></span><span></span><span></span>
+										</li>
+									</button>
+								</ul>
+							</nav>
+						</div>
+					</div>
+				</div>
+				<div class="model-view" id="model-view"></div>
+			</div>
+			<div style="text-align: center">
+				<button id="button" onclick="showMenu()">
+					<nav>
+						<ul>
 							<li id="back-btn">
 								BACK
 								<span></span><span></span><span></span><span></span>
 							</li>
-						</button>
-					</ul>
-				</nav>
+						</ul>
+					</nav>
+				</button>
 			</div>
 		</div>
 		<div id="loading"></div>
 		<script type="module" src="src/js/main.js"></script>
+		<script type="module" src="src/js/modelView.js"></script>
 		<script>
 			var runGame = function () {
 				document.getElementById("loading").style.display = "block";
 				document.getElementById("the-head").style.display = "none";
-				document.getElementById("the-score").style.display = "none";
-				document.getElementById("credits").style.display = "none";
-				document.getElementById("menu").style.display = "none";
+				document.getElementById("lalala").style.display = "none";
 				setTimeout(function () {
 					document.getElementById("loading").style.display = "none";
-				}, 2000);
+				}, 1000);
 			};
 
 			var showCredits = function () {
 				document.getElementById("the-head").style.display = "none";
-				document.getElementById("the-score").style.display = "none";
-				document.getElementById("credit-btn").style.display = "none";
-				document.getElementById("play-btn").style.display = "none";
 				document.getElementById("credits").style.display = "block";
 				document.getElementById("back-btn").style.display = "block";
+				document.getElementById("lalala").style.display = "none";
 			};
 			var showMenu = function () {
 				document.getElementById("back-btn").style.display = "none";
 				document.getElementById("credits").style.display = "none";
 				document.getElementById("the-head").style.display = "block";
 				document.getElementById("the-score").style.display = "block";
-				document.getElementById("play-btn").style.display = "block";
-				document.getElementById("credit-btn").style.display = "block";
+				document.getElementById("lalala").style.display = "flex";
 			};
 
 			window.onload = function () {
+				document.getElementById("loading").style.display = "block";
+				setTimeout(function () {
+					document.getElementById("loading").style.display = "none";
+				}, 1000);
 				if (typeof localStorage.highScore == "undefined") {
 					// doSomething();
 					document.getElementById("highScore").innerHTML = 0;

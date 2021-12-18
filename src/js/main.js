@@ -403,6 +403,7 @@ function update() {
 		rollingSideWalkRight.rotation.x = 0;
 		rollingWallLeft.rotation.x = 0;
 		rollingWallRight.rotation.x = 0;
+		scoreText.style = "none";
 		console.log(highScore);
 		document.getElementById("light").style.display = "block";
 		document.getElementById("fade").style.display = "block";

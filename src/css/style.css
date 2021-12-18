@@ -81,7 +81,8 @@ nav ul li span:nth-child(4) {
 
 .credits {
 	--c: goldenrod;
-	color: #e8ede0;
+	/* color: #e8ede0; */
+	color: var(--c);
 	font-size: 16px;
 	border: 0.3em solid var(--c);
 	border-radius: 0.5em;
@@ -98,6 +99,28 @@ nav ul li span:nth-child(4) {
 	z-index: 1;
 	transition: 0.5s;
 	margin: 1em;
+}
+
+.model-view {
+	--c: goldenrod;
+	/* color: #e8ede0; */
+	color: var(--c);
+	font-size: 16px;
+	border: 0.3em solid var(--c);
+	border-radius: 0.5em;
+	width: 40em;
+	height: 26em;
+	text-transform: uppercase;
+	font-weight: bold;
+	font-family: "Poppin", sans-serif;
+	letter-spacing: 0.1em;
+	text-align: center;
+	line-height: 3em;
+	position: relative;
+	overflow: hidden;
+	z-index: 1;
+	transition: 0.5s;
+	/* margin: 1em; */
 }
 
 .the-head {

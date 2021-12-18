@@ -29,10 +29,12 @@ var camera,
 	ObstaclesInPath,
 	ObstaclesPool,
 	hasCollided,
+	action,
 	scoreText,
 	score,
 	highScore = 0,
-	elementHighScore = document.getElementById("highScore");
+	elementHighScore = document.getElementById("highScore"),
+	elementScore = document.getElementById("scoreEnd");
 
 function init() {
 	// set up the scene
@@ -103,23 +105,14 @@ function createScene() {
 	scoreText.style.width = 100;
 	scoreText.style.height = 100;
 	scoreText.innerHTML = "0";
-	// scoreText.innerHTML = "0";
 	scoreText.style.fontFamily = "'Poppin', sans-serif";
-	scoreText.style.fontSize = 20 + "px";
+	scoreText.style.fontSize = 24 + "px";
 	scoreText.style.fontWeight = "bold";
 	scoreText.style.color = "black";
 	scoreText.style.top = 50 + "px";
-	// scoreText.style.left = 50 + "%";
 	scoreText.style.margin = 0;
 
 	document.body.appendChild(scoreText);
-
-	// debugging
-	// const controls = new OrbitControls(camera, renderer.domElement);
-	// controls.enablePan = false;
-	// controls.enableZoom = false;
-	// controls.target.set(0, 2, 0);
-	// controls.update();
 }
 
 function handleKeyDown(keyEvent) {
@@ -168,7 +161,6 @@ function addSideWalkRight() {
 	texture.wrapT = THREE.RepeatWrapping;
 	texture.repeat.set(15, 1);
 	var cylinderMat = new THREE.MeshPhongMaterial({
-		// color: 0x4f5150,
 		side: THREE.DoubleSide,
 		map: texture,
 	});
@@ -211,7 +203,6 @@ function addWallRight() {
 	texture.wrapT = THREE.RepeatWrapping;
 	texture.repeat.set(8, 8);
 	var cylinderMat = new THREE.MeshPhongMaterial({
-		// color: 0x4f5150,
 		side: THREE.DoubleSide,
 		map: texture,
 	});
@@ -246,9 +237,9 @@ function addWallLeft() {
 
 function addRobo() {
 	var loader = new FBXLoader();
-	loader.load("assets/model/Dancing.fbx", function (model) {
+	loader.load("assets/model/Running.fbx", function (model) {
 		mixer = new THREE.AnimationMixer(model);
-		var action = mixer.clipAction(model.animations[0]);
+		action = mixer.clipAction(model.animations[0]);
 		action.play();
 		model.traverse(function (node) {
 			if (node.isMesh) {
@@ -275,16 +266,10 @@ function addLight() {
 	sun.position.set(0, 87, -100);
 	sun.castShadow = true;
 	scene.add(sun);
-
-	// Set up shadow properties for the sun light
-	// sun.shadow.mapSize.width = 256;
-	// sun.shadow.mapSize.height = 256;
-	// sun.shadow.camera.near = 0.5;
-	// sun.shadow.camera.far = 20;
 }
 
 function createObstaclesPool() {
-	var maxObstaclesInPool = 50;
+	var maxObstaclesInPool = 200;
 	var newRock = new THREE.Object3D();
 	for (var i = 0; i < maxObstaclesInPool; i++) {
 		newRock = createObstacle();
@@ -294,8 +279,8 @@ function createObstaclesPool() {
 
 function addPathObstacle() {
 	var options = [0, 1, 2];
-	var lane = Math.floor(Math.random() * 3.2);
-	addObstacle(true, lane);
+	var lane = Math.floor(Math.random() * 3);
+	// addObstacle(true, lane);
 	options.splice(lane, 1);
 	if (Math.random() > 0.5) {
 		lane = Math.floor(Math.random() * 2.3);
@@ -307,7 +292,6 @@ function addWorldObstaclesRight() {
 	var numObstacles = 6;
 	var gap = 6 / 6;
 	for (var i = 0; i < numObstacles; i++) {
-		// addObstacle(false, i * gap, true);
 		addObstacle(false, i * gap, false);
 	}
 }
@@ -315,7 +299,6 @@ function addWorldObstaclesLeft() {
 	var numObstacles = 6;
 	var gap = 6 / 6;
 	for (var i = 0; i < numObstacles; i++) {
-		// addObstacle(false, i * gap, true);
 		addObstacle(false, i * gap, true);
 	}
 }
@@ -326,7 +309,7 @@ function addObstacle(inPath, row, isLeft) {
 		if (ObstaclesPool.length == 0) return;
 		newRock = ObstaclesPool.pop();
 		newRock.visible = true;
-		console.log("add tree");
+		// console.log("add tree");
 		ObstaclesInPath.push(newRock);
 		sphericalHelper.set(streetRadius - 0.5, pathAngleValues[row], rollingStreet.rotation.x + 4);
 	} else {
@@ -357,7 +340,7 @@ function createObstacle() {
 				node.receiveShadow = true;
 			}
 		});
-		model.scale.set(0.185, 0.185, 0.185);
+		model.scale.set(0.21, 0.21, 0.21);
 		model.rotation.set(0, Math.PI / 2, 0);
 		rock.add(model);
 	});
@@ -367,15 +350,15 @@ function createObstacle() {
 function createObstacle2() {
 	var lamp = new THREE.Object3D();
 	var loader = new FBXLoader();
-	loader.load("assets/model/StreetLamp.fbx", function (model) {
+	loader.load("assets/model/Coconut.fbx", function (model) {
 		model.traverse(function (node) {
 			if (node.isMesh) {
 				node.castShadow = true;
 				node.receiveShadow = true;
 			}
 		});
-		model.scale.set(0.02, 0.025, 0.02);
-		model.rotation.set(0.05, Math.PI / 2, 0);
+		model.scale.set(0.025, 0.025, 0.025);
+		model.rotation.set(0, Math.PI / 2, 0);
 		lamp.add(model);
 	});
 	return lamp;
@@ -388,7 +371,7 @@ function update() {
 	if (mixer) mixer.update(delta);
 
 	if (robo) robo.position.x = THREE.Math.lerp(robo.position.x, currentLane, 600 * clock.getDelta()); //clock.getElapsedTime());
-	console.log(currentLane);
+	// console.log(currentLane);
 
 	rollingStreet.rotation.x += rollingSpeed;
 	rollingSideWalkRight.rotation.x += rollingSpeed;
@@ -400,24 +383,30 @@ function update() {
 		clock.start();
 		addPathObstacle();
 		if (!hasCollided) {
-			score += 1 * Math.round(ObstacleReleaseInterval);
+			score++;
+			// score += 4 * Math.round(ObstacleReleaseInterval);
 			scoreText.innerHTML = score.toString();
 
-			if (score > highScore) {
-				console.log(score);
+			if (score > localStorage.getItem("highScore")) {
+				// console.log(highScore);
 				highScore = score;
 				elementHighScore.innerHTML = highScore;
-				localStorage.setItem("highScoreName", highScore);
+				localStorage.setItem("highScore", score);
 			}
 		}
 	}
 
 	if (hasCollided) {
+		elementScore.innerHTML = score;
 		rollingStreet.rotation.x = 0;
 		rollingSideWalkLeft.rotation.x = 0;
 		rollingSideWalkRight.rotation.x = 0;
 		rollingWallLeft.rotation.x = 0;
 		rollingWallRight.rotation.x = 0;
+		console.log(highScore);
+		document.getElementById("light").style.display = "block";
+		document.getElementById("fade").style.display = "block";
+		robo.animations(stop);
 	}
 
 	doObstacleLogic();
@@ -438,16 +427,9 @@ function doObstacleLogic() {
 			// gone out of our view zone
 			ObstaclesToRemove.push(oneObstacle);
 		} else {
-			console.log("test");
 			// check collision
 			if (ObstaclePos.distanceTo(robo.position) <= 3) {
-				// hasCollided = true;
-				hasCollided = false;
-				console.log("hit");
-
-				// if (!alert("TETAPLAH MENYERAH DAN JANGAN SEMANGAT :)")) {
-				// 	window.location.reload();
-				// }
+				hasCollided = true;
 			}
 		}
 	});
@@ -459,7 +441,6 @@ function doObstacleLogic() {
 		ObstaclesInPath.splice(fromWhere, 1);
 		ObstaclesPool.push(oneObstacle);
 		oneObstacle.visible = false;
-		console.log("remove obstacle");
 	});
 }
 

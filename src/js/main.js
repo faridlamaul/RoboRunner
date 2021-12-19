@@ -135,7 +135,7 @@ function handleKeyDown(keyEvent) {
 
 function addStreet() {
 	var cylinderGeo = new THREE.CylinderGeometry(streetRadius, streetRadius, 20, 200, 1);
-	var texture = new THREE.TextureLoader().load("../assets/textures/street.jpg");
+	var texture = new THREE.TextureLoader().load("assets/textures/street.jpg");
 	texture.rotation = Math.PI / 2;
 	texture.wrapS = THREE.RepeatWrapping;
 	texture.wrapT = THREE.RepeatWrapping;
@@ -155,7 +155,7 @@ function addStreet() {
 
 function addSideWalkRight() {
 	var cylinderGeo = new THREE.CylinderGeometry(19.5, 19.5, 5, 200, 1);
-	var texture = new THREE.TextureLoader().load("../assets/textures/sidewalk.jpg");
+	var texture = new THREE.TextureLoader().load("assets/textures/sidewalk.jpg");
 	texture.rotation = Math.PI;
 	texture.wrapS = THREE.RepeatWrapping;
 	texture.wrapT = THREE.RepeatWrapping;
@@ -176,7 +176,7 @@ function addSideWalkRight() {
 
 function addSideWalkLeft() {
 	var cylinderGeo = new THREE.CylinderGeometry(19.5, 19.5, 5, 200, 1);
-	var texture = new THREE.TextureLoader().load("../assets/textures/sidewalk.jpg");
+	var texture = new THREE.TextureLoader().load("assets/textures/sidewalk.jpg");
 	texture.rotation = Math.PI;
 	texture.wrapS = THREE.RepeatWrapping;
 	texture.wrapT = THREE.RepeatWrapping;
@@ -197,7 +197,7 @@ function addSideWalkLeft() {
 
 function addWallRight() {
 	var cylinderGeo = new THREE.CylinderGeometry(30, 30, 12, 200, 1);
-	var texture = new THREE.TextureLoader().load("../assets/textures/wall.jpg");
+	var texture = new THREE.TextureLoader().load("assets/textures/wall.jpg");
 	texture.rotation = Math.PI / 2;
 	texture.wrapS = THREE.RepeatWrapping;
 	texture.wrapT = THREE.RepeatWrapping;
@@ -217,7 +217,7 @@ function addWallRight() {
 
 function addWallLeft() {
 	var cylinderGeo = new THREE.CylinderGeometry(30, 30, 12, 200, 1);
-	var texture = new THREE.TextureLoader().load("../assets/textures/wall.jpg");
+	var texture = new THREE.TextureLoader().load("assets/textures/wall.jpg");
 	texture.rotation = Math.PI;
 	texture.wrapS = THREE.RepeatWrapping;
 	texture.wrapT = THREE.RepeatWrapping;
